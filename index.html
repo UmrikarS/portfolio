@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sneha Umrikar — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0d13;
+    --panel:rgba(29,37,49,.55);
+    --panel-alt:rgba(255,255,255,.04);
+    --line:rgba(255,255,255,.08);
+    --line-strong:rgba(255,255,255,.14);
+    --text:#eef1f5;
+    --text-dim:#8e97a6;
+    --text-faint:#5d6472;
+    --amber:#f2a93b;
+    --amber-glow:rgba(242,169,59,.35);
+    --amber-dim:#8a672a;
+    --teal:#3ecbb8;
+    --teal-glow:rgba(62,203,184,.3);
+    --teal-dim:#1f6b62;
+    --coral:#e2695c;
+    --blue:#5fb9d8;
+    --ink:#14161a;
+    --ink-glow:rgba(20,22,26,.18);
+    --radius:12px;
+    --bg-image:none;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    position:relative;
+    background:
+      linear-gradient(180deg, rgba(6,8,13,.55) 0%, rgba(10,13,19,.72) 45%, rgba(7,9,14,.82) 100%),
+      var(--bg-image) center/cover no-repeat fixed,
+      radial-gradient(ellipse 900px 560px at 12% -8%, rgba(242,169,59,.10), transparent 60%),
+      radial-gradient(ellipse 800px 560px at 105% 15%, rgba(62,203,184,.10), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 50% 115%, rgba(62,203,184,.05), transparent 60%),
+      linear-gradient(180deg, #080a10 0%, #0d1119 45%, #090c12 100%);
+    background-attachment:fixed;
+    color:var(--text);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    z-index:0;
+    pointer-events:none;
+    opacity:.05;
+    background-image:
+      linear-gradient(rgba(255,255,255,.6) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.6) 1px, transparent 1px);
+    background-size:42px 42px;
+    animation:driftgrid 50s linear infinite;
+    mask-image:radial-gradient(ellipse 90% 70% at 50% 30%, #000 40%, transparent 90%);
+  }
+  @keyframes driftgrid{
+    from{background-position:0 0, 0 0;}
+    to{background-position:120px 80px, 120px 80px;}
+  }
+  .app{position:relative;z-index:1;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:var(--teal);}
+  .app{
+    display:flex;
+    min-height:100vh;
+    max-width:1180px;
+    margin:0 auto;
+  }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    width:210px;
+    flex-shrink:0;
+    padding:2rem 0 2rem 1.5rem;
+    display:flex;
+    flex-direction:column;
+    gap:2px;
+    border-right:1px solid var(--line);
+    position:relative;
+  }
+  .nav-header{
+    padding:0 0 1.25rem 0;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .avatar{
+    width:152px;height:152px;border-radius:16px;flex-shrink:0;
+    background:linear-gradient(135deg, var(--amber), var(--teal));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:500;color:#0a0d13;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+  .avatar-lg{
+    width:84px;height:84px;border-radius:50%;
+    background:linear-gradient(135deg, var(--amber), var(--teal));
+    display:flex;align-items:center;justify-content:center;
+    font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:500;color:#0a0d13;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+    margin-bottom:18px;
+  }
+  .avatar-lg img{width:100%;height:100%;object-fit:cover;display:block;}
+  .nav-header .name{font-size:15px;font-weight:600;letter-spacing:.01em;}
+  .nav-header .role{font-size:12px;color:var(--text-dim);margin-top:2px;}
+  .nav-rail{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .navlink{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 14px;
+    border-radius:var(--radius) 0 0 var(--radius);
+    cursor:pointer;
+    color:var(--text-dim);
+    font-size:13.5px;
+    user-select:none;
+    position:relative;
+    transition:color .15s ease, background .15s ease;
+  }
+  .navlink svg{width:16px;height:16px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.6;}
+  .navlink:hover{color:var(--text);}
+  .navlink.active{color:var(--amber);background:var(--panel);box-shadow:0 0 0 1px var(--line) inset, -2px 0 14px -4px var(--amber-glow);}
+  .navlink.active svg{stroke:var(--amber);}
+
+  /* flight rail: dashed vertical guide + plane marker that travels to active link */
+  .flightrail{
+    position:absolute;
+    left:-1.5rem;
+    top:0;
+    bottom:0;
+    width:1.5rem;
+  }
+  .flightrail::before{
+    content:'';
+    position:absolute;
+    left:11px;
+    top:8px;
+    bottom:8px;
+    width:1px;
+    background:repeating-linear-gradient(to bottom, var(--line) 0 4px, transparent 4px 8px);
+  }
+  .plane-marker{
+    position:absolute;
+    left:3px;
+    width:17px;
+    height:17px;
+    transition:top .45s cubic-bezier(.4,0,.2,1);
+    color:var(--amber);
+  }
+  .plane-marker svg{width:100%;height:100%;transform:rotate(90deg);}
+
+  /* ---------- MAIN ---------- */
+  main{
+    flex:1;
+    padding:2.5rem 3rem 4rem;
+    min-width:0;
+  }
+  .eyebrow{
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--text);
+    margin-bottom:6px;
+  }
+  h1{font-size:22px;font-weight:600;margin:0 0 1.75rem;}
+  .section{display:none;}
+  .section.active{display:block;animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  /* ---- reusable bits ---- */
+  .kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:2rem;}
+  .kpi{
+    position:relative;
+    background:var(--panel);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:14px 16px;
+    overflow:hidden;
+    box-shadow:0 12px 30px -18px rgba(0,0,0,.6);
+  }
+  .kpi::before{
+    content:'';
+    position:absolute;
+    top:-30%;
+    right:-20%;
+    width:70px;
+    height:70px;
+    background:radial-gradient(circle, var(--amber-glow), transparent 70%);
+    filter:blur(6px);
+  }
+  .kpi .val{font-family:'IBM Plex Mono',monospace;font-size:26px;color:var(--amber);position:relative;text-shadow:0 0 18px var(--amber-glow);}
+  .kpi .lbl{font-size:11.5px;color:var(--text-dim);margin-top:4px;position:relative;}
+
+  .card{
+    background:var(--panel);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:1.25rem 1.4rem;
+    margin-bottom:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.03) inset, 0 12px 30px -18px rgba(0,0,0,.6);
+    transition:border-color .2s ease, transform .2s ease;
+  }
+  .card h3{font-size:15px;font-weight:600;margin:0 0 2px;}
+  .subline{font-size:12.5px;color:var(--text-dim);margin-bottom:10px;}
+  .bullets{margin:10px 0 0;padding-left:18px;font-size:13.5px;color:var(--text-dim);}
+  .bullets li{margin-bottom:4px;}
+
+  .chip{display:inline-block;font-size:11.5px;padding:4px 10px;border-radius:20px;background:var(--panel-alt);border:1px solid var(--line);color:var(--text-dim);margin:0 6px 6px 0;}
+  .chip.amber{color:var(--amber);border-color:var(--amber-dim);}
+  .chip.teal{color:var(--teal);border-color:var(--teal-dim);}
+
+  .stamp{display:inline-flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--coral);border:1px solid var(--coral);border-radius:4px;padding:3px 8px;letter-spacing:.03em;}
+
+  /* projects grid */
+  .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .proj-tile{
+    position:relative;
+    background:var(--panel);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:1.1rem 1.25rem;
+    cursor:pointer;
+    box-shadow:0 12px 30px -18px rgba(0,0,0,.6);
+    transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+  }
+  .proj-tile:hover{border-color:var(--amber-dim);transform:translateY(-3px);box-shadow:0 18px 34px -16px rgba(0,0,0,.7), 0 0 0 1px var(--amber-dim) inset;}
+  .proj-tile:hover .tile-arrow{opacity:1;transform:translate(2px,-2px);}
+  .tile-arrow{
+    position:absolute; top:14px; right:14px;
+    width:22px; height:22px;
+    border-radius:50%;
+    background:var(--panel-alt);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    opacity:.7;
+    transition:opacity .2s ease, transform .2s ease;
+  }
+  .tile-arrow svg{width:11px;height:11px;stroke:var(--amber);fill:none;stroke-width:2;}
+  .proj-viz{height:70px;border-radius:6px;margin-bottom:12px;background:var(--panel-alt);display:flex;align-items:flex-end;gap:3px;padding:8px;overflow:hidden;}
+  .proj-tile h3{font-size:14.5px;padding-right:26px;}
+  .proj-desc{font-size:12.5px;color:var(--text-dim);margin-top:4px;}
+  .tile-cta{
+    display:inline-flex; align-items:center; gap:5px;
+    font-size:11.5px; color:var(--amber);
+    margin-top:12px; font-weight:500;
+  }
+  .tile-cta svg{width:11px;height:11px;stroke:var(--amber);fill:none;stroke-width:2;transition:transform .2s ease;}
+  .proj-tile:hover .tile-cta svg{transform:translateX(3px);}
+  .proj-detail{display:none;margin-top:14px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--text-dim);}
+  .proj-detail.open{display:block;}
+  .proj-detail b{color:var(--text);font-weight:500;}
+  .proj-detail p{margin:0 0 8px;}
+
+  /* ---------- project case-study page ---------- */
+  .proj-grid.hidden{display:none;}
+  .case-study{display:none;}
+  .case-study.open{display:block;animation:rise .4s cubic-bezier(.2,.7,.3,1);}
+  .back-link{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--text-dim);cursor:pointer;margin-bottom:14px;user-select:none;}
+  .back-link:hover{color:var(--amber);}
+  .case-title{font-size:19px;font-weight:600;margin:0 0 4px;}
+  .case-sub{font-size:12.5px;color:var(--text-dim);margin-bottom:18px;}
+
+  .pdf-embed{
+    background:var(--panel);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:10px;
+    margin-bottom:18px;
+    box-shadow:0 12px 30px -18px rgba(0,0,0,.6);
+  }
+  .pdf-embed iframe{
+    width:100%;
+    height:520px;
+    border:none;
+    border-radius:8px;
+    background:#fff;
+    display:block;
+  }
+  .pdf-fallback{font-size:12px;color:var(--text-faint);margin-top:8px;text-align:center;}
+  .pdf-fallback a{color:var(--teal);}
+
+  .case-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .case-block h4{font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);margin:0 0 8px;font-weight:500;}
+  .case-block p{font-size:13.5px;color:var(--text-dim);margin:0;line-height:1.65;}
+  .case-block ul{margin:0;padding-left:18px;font-size:13.5px;color:var(--text-dim);line-height:1.7;}
+
+  .ppt-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--amber);
+    background:rgba(242,169,59,.08);
+    border:1px solid var(--amber-dim);
+    border-radius:var(--radius);
+    padding:10px 16px;
+    text-decoration:none;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .ppt-link:hover{transform:translateY(-2px);background:rgba(242,169,59,.14);}
+  .ppt-link svg{width:15px;height:15px;stroke:var(--amber);fill:none;stroke-width:1.7;}
+
+  .ppt-embed{
+    background:var(--panel);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:10px;
+    margin-bottom:14px;
+    box-shadow:0 12px 30px -18px rgba(0,0,0,.6);
+  }
+  .ppt-embed iframe{
+    width:100%;
+    height:480px;
+    border:none;
+    border-radius:8px;
+    background:#fff;
+    display:block;
+  }
+
+  /* education */
+  .edu-item{display:flex;gap:16px;padding-bottom:1.4rem;position:relative;}
+  .edu-item:not(:last-child)::before{content:'';position:absolute;left:5px;top:16px;bottom:0;width:1px;background:var(--line);}
+  .edu-dot{width:11px;height:11px;border-radius:50%;background:var(--teal);margin-top:4px;flex-shrink:0;}
+  .edu-year{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text-faint);}
+  .grade{display:inline-block;font-size:10.5px;font-family:'IBM Plex Mono',monospace;padding:2px 7px;border-radius:4px;background:var(--panel-alt);color:var(--teal);margin-left:8px;}
+
+  /* certs */
+  .cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+  .cert-badge{display:flex;align-items:center;gap:10px;background:var(--panel);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;font-size:13px;transition:border-color .2s, transform .2s;}
+  .cert-badge:hover{border-color:var(--amber-dim);transform:translateY(-2px);}
+  .cert-badge svg{width:18px;height:18px;stroke:var(--amber);fill:none;stroke-width:1.6;flex-shrink:0;}
+
+  /* skills matrix */
+  .matrix-row{display:grid;grid-template-columns:170px 1fr;align-items:center;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);}
+  .matrix-row:last-child{border-bottom:none;}
+  .matrix-label{font-size:13px;}
+  .matrix-sub{font-size:11px;color:var(--text-faint);}
+  .matrix-bar{display:flex;gap:4px;}
+  .cell{height:16px;flex:1;border-radius:3px;background:var(--panel-alt);}
+  .cell.on{background:var(--teal);}
+  .cell.on.strong{background:var(--amber);}
+  .matrix-legend{display:flex;gap:18px;font-size:11.5px;color:var(--text-dim);margin-top:14px;}
+
+  /* ---------- languages by company (Skills sub-section) ---------- */
+  .subsection-gap{margin-top:2.5rem;}
+  .lang-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:16px;margin-bottom:16px;}
+  .lang-grid .card h4{font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--text-faint);font-weight:500;margin:0 0 14px;}
+  #pieCanvas{max-height:230px;}
+  .pie-legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px;font-size:12px;color:var(--text-dim);}
+  .pie-legend span{display:inline-flex;align-items:center;gap:5px;}
+  #treemap{position:relative;width:100%;height:280px;}
+  .tm-node{position:absolute;border-radius:5px;overflow:hidden;padding:6px 8px;font-size:11px;color:#0a0d13;font-weight:500;box-sizing:border-box;}
+  .tm-node .co{font-size:9.5px;opacity:.75;display:block;margin-bottom:2px;}
+  .tm-group{position:absolute;box-sizing:border-box;pointer-events:none;padding:4px 8px;color:var(--text-dim);font-size:11px;}
+  .lang-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:6px;}
+  .lang-table th{text-align:left;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--text-faint);font-weight:500;padding:7px 9px;border-bottom:1px solid var(--line);}
+  .lang-table td{padding:8px 9px;border-bottom:1px solid var(--line);color:var(--text-dim);}
+  .lang-table td.co{color:var(--text);}
+  .lang-tag{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:10px;font-weight:500;}
+  .lang-note{font-size:12px;color:var(--text-faint);margin-top:10px;line-height:1.6;}
+  .legend-dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;}
+
+  /* contact */
+  .contact-card{background:var(--panel);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:var(--radius);padding:1.5rem;max-width:420px;box-shadow:0 12px 30px -18px rgba(0,0,0,.6);}
+  .contact-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);text-decoration:none;color:var(--text);font-size:13.5px;}
+  .contact-row:last-child{border-bottom:none;}
+  .contact-row:hover .contact-val{color:var(--amber);}
+  .contact-label{color:var(--text-dim);display:flex;align-items:center;gap:8px;}
+  .contact-label svg{width:15px;height:15px;stroke:var(--text-dim);fill:none;stroke-width:1.6;}
+  .contact-val{transition:color .15s;}
+  .visa-note{margin-top:14px;font-size:12px;color:var(--teal);background:rgba(53,183,166,.08);border:1px solid var(--teal-dim);border-radius:6px;padding:9px 12px;}
+
+  /* ---------- flight path animation ---------- */
+  .flightcard #routePath{
+    stroke-dasharray:900;
+    stroke-dashoffset:900;
+  }
+  .flightcard.animate #routePath{
+    animation:drawroute 2.6s cubic-bezier(.45,.05,.35,1) forwards;
+  }
+  @keyframes drawroute{ to{ stroke-dashoffset:0; } }
+
+  .wp-ring{opacity:0;transform-origin:center;transform-box:fill-box;}
+  .flightcard.animate .wp-ring{ animation:ping 1.1s ease-out forwards; animation-delay:inherit; }
+  .wp{ }
+  .flightcard.animate .wp .wp-ring{ animation:ping 1.1s ease-out; }
+  @keyframes ping{
+    0%{opacity:0;transform:scale(.4);}
+    35%{opacity:.9;}
+    100%{opacity:0;transform:scale(1.8);}
+  }
+
+  #planeGroup{opacity:0;}
+  .flightcard.animate #planeGroup{opacity:1;animation:planein .3s ease forwards;}
+  @keyframes planein{from{opacity:0;}to{opacity:1;}}
+
+  /* ---------- entrance stagger ---------- */
+  .section.active .card,
+  .section.active .kpi,
+  .section.active .proj-tile,
+  .section.active .cert-badge,
+  .section.active .edu-item,
+  .section.active .contact-card{
+    animation:rise .5s cubic-bezier(.2,.7,.3,1) backwards;
+  }
+  .kpi-row .kpi:nth-child(1){animation-delay:.02s;}
+  .kpi-row .kpi:nth-child(2){animation-delay:.08s;}
+  .kpi-row .kpi:nth-child(3){animation-delay:.14s;}
+  .kpi-row .kpi:nth-child(4){animation-delay:.2s;}
+  .card:nth-of-type(1){animation-delay:.05s;}
+  .card:nth-of-type(2){animation-delay:.12s;}
+  .card:nth-of-type(3){animation-delay:.19s;}
+  .proj-grid .proj-tile:nth-child(1){animation-delay:.04s;}
+  .proj-grid .proj-tile:nth-child(2){animation-delay:.1s;}
+  .proj-grid .proj-tile:nth-child(3){animation-delay:.16s;}
+  .proj-grid .proj-tile:nth-child(4){animation-delay:.22s;}
+  @keyframes rise{
+    from{opacity:0;transform:translateY(10px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .section.active .card,.section.active .kpi,.section.active .proj-tile,
+    .section.active .cert-badge,.section.active .edu-item,.section.active .contact-card,
+    body::before, .flightcard.animate #routePath, .flightcard.animate .wp-ring{
+      animation:none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <nav class="nav">
+    <div class="nav-header">
+      <div class="avatar"><img src="assets/photo.jpg" alt="Sneha Umrikar"></div>
+      <div>
+        <div class="name">Sneha Umrikar</div>
+        <div class="role">Business analytics &amp; BI</div>
+      </div>
+    </div>
+    <div class="nav-rail">
+      <div class="flightrail"><div class="plane-marker" id="planeMarker">
+        <svg viewBox="0 0 24 24"><path d="M2 12l19-8-6 8 6 8-19-8zM2 12h9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div></div>
+
+      <div class="navlink active" data-section="overview">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+        Overview
+      </div>
+      <div class="navlink" data-section="experience">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="1.5"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+        Experience
+      </div>
+      <div class="navlink" data-section="projects">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M11 20V4M18 20v-7"/></svg>
+        Projects
+      </div>
+      <div class="navlink" data-section="education">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5-10-5z"/><path d="M6 11v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>
+        Education
+      </div>
+      <div class="navlink" data-section="certs">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>
+        Certifications
+      </div>
+      <div class="navlink" data-section="skills">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        Skills
+      </div>
+      <div class="navlink" data-section="contact">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+        Contact
+      </div>
+      <div class="navlink" data-section="about">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        About me
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- OVERVIEW -->
+    <section class="section active" id="overview">
+      <div class="eyebrow">Flight log</div>
+      <h1>12 years in safety‑critical aerospace, now applying the same rigour to analytics, automation and AI.</h1>
+      <div class="kpi-row">
+        <div class="kpi"><div class="val">12</div><div class="lbl">Years experience</div></div>
+        <div class="kpi"><div class="val">10</div><div class="lbl">Projects delivered</div></div>
+        <div class="kpi"><div class="val">6</div><div class="lbl">Certifications</div></div>
+        <div class="kpi"><div class="val">5</div><div class="lbl">Industries touched</div></div>
+      </div>
+      <div class="card flightcard">
+        <div class="subline" style="margin-bottom:6px;">Career flight path</div>
+        <svg viewBox="0 0 620 195" style="width:100%;height:210px;overflow:visible;">
+          <defs>
+            <linearGradient id="routeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#3ecbb8"/>
+              <stop offset="55%" stop-color="#5fb9d8"/>
+              <stop offset="100%" stop-color="#f2a93b"/>
+            </linearGradient>
+            <radialGradient id="planeglow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#f2a93b" stop-opacity=".9"/>
+              <stop offset="100%" stop-color="#f2a93b" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+
+          <!-- faint baseline -->
+          <path d="M55,150 C160,120 230,100 310,95 C400,90 480,55 565,35" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1.5"/>
+
+          <!-- animated route (contrail), climbs left-to-right -->
+          <path id="routePath" d="M55,150 C160,120 230,100 310,95 C400,90 480,55 565,35"
+                fill="none" stroke="url(#routeGrad)" stroke-width="2" stroke-linecap="round"/>
+
+          <!-- waypoints -->
+          <g class="wp" style="animation-delay:.1s">
+            <circle cx="55" cy="150" r="10" fill="none" stroke="#3ecbb8" stroke-width="1.5" class="wp-ring"/>
+            <circle cx="55" cy="150" r="4.5" fill="#3ecbb8"/>
+          </g>
+          <g class="wp" style="animation-delay:1.15s">
+            <circle cx="310" cy="95" r="10" fill="none" stroke="#5fb9d8" stroke-width="1.5" class="wp-ring"/>
+            <circle cx="310" cy="95" r="4.5" fill="#5fb9d8"/>
+          </g>
+          <g class="wp" style="animation-delay:2.2s">
+            <circle cx="565" cy="35" r="10" fill="none" stroke="#f2a93b" stroke-width="1.5" class="wp-ring"/>
+            <circle cx="565" cy="35" r="4.5" fill="#f2a93b"/>
+          </g>
+
+          <!-- labels -->
+          <text x="55" y="173" fill="#5d6472" font-size="10.5" text-anchor="middle" font-family="IBM Plex Mono">2010</text>
+          <text x="55" y="190" fill="#c7ccd4" font-size="12" text-anchor="middle">Collins Aerospace</text>
+          <text x="310" y="118" fill="#5d6472" font-size="10.5" text-anchor="middle" font-family="IBM Plex Mono">2016</text>
+          <text x="310" y="135" fill="#c7ccd4" font-size="12" text-anchor="middle">Cyient · Boeing &amp; Honeywell</text>
+          <text x="565" y="58" fill="#5d6472" font-size="10.5" text-anchor="middle" font-family="IBM Plex Mono">2022–now</text>
+          <text x="565" y="75" fill="#c7ccd4" font-size="12" text-anchor="middle">Business analyst · NZ</text>
+
+          <!-- plane + glow, follows routePath, rotate="auto" tilts the nose up as the climb steepens -->
+          <g id="planeGroup">
+            <circle r="16" fill="url(#planeglow)"/>
+            <path d="M15 4.5l-15 -4.5 5.5 4.5 -5.5 4.5z" fill="#f2a93b"/>
+            <animateMotion id="planeMotion" dur="2.6s" begin="indefinite" fill="freeze" rotate="auto">
+              <mpath href="#routePath"/>
+            </animateMotion>
+          </g>
+        </svg>
+        <!--<div class="subline" style="margin-top:2px;">Same instinct, new instruments — 12 years reading flight data, now reading business data.</div>-->
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section" id="experience">
+      <div class="eyebrow">Roles</div>
+      <h1>Experience</h1>
+      <div class="card">
+        <h3>Technical lead / testing engineer</h3>
+        <div class="subline">Cyient Ltd · client programs for Boeing &amp; Honeywell · 2016 – 2022</div>
+        <span class="stamp">DO-178B/C · Level A</span>
+        <ul class="bullets">
+          <li>Led requirements verification and defect resolution for safety-critical avionics software under strict certification timelines.</li>
+          <li>Reached 100% requirements-based code coverage on a safety-critical communications module.</li>
+          <li>Selected for on-site verification work at Honeywell and Boeing facilities.</li>
+        </ul>
+        <div style="margin-top:12px;">
+          <span class="chip">HiLiTe tool · Honeywell</span>
+          <span class="chip">Datalink · Honeywell</span>
+          <span class="chip">EEC ASI · Pratt &amp; Whitney</span>
+          <span class="chip">Platform software · Boeing</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Senior software engineer</h3>
+        <div class="subline">Collins Aerospace · Bombardier CSeries &amp; M145 programs · 2010 – 2016</div>
+        <span class="stamp">DO-178B · Level A/B</span>
+        <ul class="bullets">
+          <li>Verified and qualified crew-alerting and display systems for certification compliance.</li>
+          <li>Mentored new engineers and completed a 3-month onsite assignment in the US.</li>
+        </ul>
+        <div style="margin-top:12px;">
+          <span class="chip">EICAS verification &amp; development</span>
+          <span class="chip">Checklist tool (RCCT / BCVS)</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Volunteer business analyst</h3>
+        <div class="subline">Tiaki Taonga Trust · present</div>
+        <ul class="bullets">
+          <li>Applying requirements-gathering and stakeholder facilitation skills in a non-profit setting.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="section" id="projects">
+      <div class="eyebrow">Case studies</div>
+      <h1 style="margin-bottom:6px;">Projects</h1>
+      <div class="subline" style="margin-bottom:1.5rem;">Click any project below to view the dashboard, business case, and presentation.</div>
+
+      <div class="proj-grid" id="projGrid">
+
+        <div class="proj-tile" onclick="showProject('p1')">
+          <div class="tile-arrow"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          <div class="proj-viz">
+            <div style="width:100%;height:100%;background:linear-gradient(135deg, rgba(226,105,92,.15), rgba(226,105,92,.55));border-radius:6px;"></div>
+          </div>
+          <h3>Auckland road crash analytics</h3>
+          <div class="proj-desc">Predictive model flagging accident hotspots and severity trends.</div>
+          <div class="chip teal" style="margin-top:8px;">Power BI</div><div class="chip teal">SQL</div><div class="chip teal">Python</div>
+          <a class="tile-cta" href="#case-p1" onclick="event.preventDefault(); event.stopPropagation(); showProject('p1');">View case study <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+
+        <div class="proj-tile" onclick="showProject('p2')">
+          <div class="tile-arrow"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          <div class="proj-viz" style="align-items:center;">
+            <svg viewBox="0 0 100 30" style="width:100%;height:30px;"><polyline points="0,25 15,18 30,20 45,10 60,14 75,5 100,8" fill="none" stroke="#35b7a6" stroke-width="2"/></svg>
+          </div>
+          <h3>One NZ sentiment analysis</h3>
+          <div class="proj-desc">NLP on customer reviews to track sentiment and churn signals.</div>
+          <div class="chip teal" style="margin-top:8px;">Python · VADER/RoBERTa</div><div class="chip teal">Power BI</div>
+          <a class="tile-cta" href="#case-p2" onclick="event.preventDefault(); event.stopPropagation(); showProject('p2');">View case study <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+
+        <div class="proj-tile" onclick="showProject('p3')">
+          <div class="tile-arrow"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          <div class="proj-viz" style="gap:6px;">
+            <div style="width:22%;height:90%;background:#f2a93b;border-radius:3px 3px 0 0;"></div>
+            <div style="width:22%;height:65%;background:#f2a93b;border-radius:3px 3px 0 0;opacity:.7;"></div>
+            <div style="width:22%;height:40%;background:#f2a93b;border-radius:3px 3px 0 0;opacity:.5;"></div>
+            <div style="width:22%;height:20%;background:#f2a93b;border-radius:3px 3px 0 0;opacity:.3;"></div>
+          </div>
+          <h3>OLIST e-commerce analytics</h3>
+          <div class="proj-desc">ETL warehouse and executive dashboard for revenue &amp; retention.</div>
+          <div class="chip teal" style="margin-top:8px;">Snowflake</div><div class="chip teal">SQL</div><div class="chip teal">Power BI</div>
+          <a class="tile-cta" href="#case-p3" onclick="event.preventDefault(); event.stopPropagation(); showProject('p3');">View case study <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+
+        <div class="proj-tile" onclick="showProject('p4')">
+          <div class="tile-arrow"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></div>
+          <div class="proj-viz" style="align-items:center;justify-content:center;">
+            <svg viewBox="0 0 40 40" style="width:44px;height:44px;">
+              <circle cx="20" cy="20" r="16" fill="none" stroke="#28303c" stroke-width="4"/>
+              <circle cx="20" cy="20" r="16" fill="none" stroke="#e2695c" stroke-width="4" stroke-dasharray="70 100" stroke-linecap="round" transform="rotate(-90 20 20)"/>
+            </svg>
+          </div>
+          <h3>Smartwatch health analytics</h3>
+          <div class="proj-desc">Fall-risk and activity dashboard for clinicians.</div>
+          <div class="chip teal" style="margin-top:8px;">Python · clustering</div><div class="chip teal">Power BI</div>
+          <a class="tile-cta" href="#case-p4" onclick="event.preventDefault(); event.stopPropagation(); showProject('p4');">View case study <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+
+      </div>
+
+      <!-- CASE STUDY: Road Crash -->
+      <div class="case-study" id="case-p1">
+        <div class="back-link" onclick="showProjGrid()">&larr; Back to projects</div>
+        <div class="case-title">Auckland road crash analytics</div>
+        <div class="case-sub">Power BI · SQL · Python · Microsoft Fabric</div>
+
+        <div class="pdf-embed">
+          <iframe src="assets/pdf/road-crash-dashboard.pdf" title="Auckland road crash analytics Power BI dashboard PDF"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/pdf/road-crash-dashboard.pdf" target="_blank">open the PDF directly &#8599;</a></div>
+        </div>
+
+        <div class="case-grid">
+          <div class="case-block">
+            <h4>Business problem</h4>
+            <p>Auckland's road crash data was spread across raw incident records, making it hard for planners to see where and why crashes cluster, or which factors (road type, time of day, weather) drive severity.</p>
+          </div>
+          <div class="case-block">
+            <h4>What it solves</h4>
+            <p>A predictive analytics model built on Microsoft Fabric surfaces hotspot locations and severity patterns in an interactive Power BI report, turning scattered records into a clear, explorable risk map.</p>
+          </div>
+        </div>
+
+        <div class="case-block" style="margin-bottom:18px;">
+          <h4>Recommendations</h4>
+          <ul>
+            <li>Prioritise engineering review (signage, lighting, speed limits) at the top-ranked hotspot intersections first.</li>
+            <li>Target enforcement and public-awareness campaigns around the time-of-day and weather conditions most linked to severe crashes.</li>
+            <li>Re-run the model quarterly as new crash data arrives, so the hotspot ranking stays current rather than static.</li>
+          </ul>
+        </div>
+
+        <h4 style="font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);margin:0 0 10px;font-weight:500;">Presentation</h4>
+        <div class="pdf-embed">
+          <iframe src="assets/ppt/road-crash-analytics-presentation.pdf" title="Auckland road crash analytics presentation preview"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/ppt/road-crash-analytics-presentation.pdf" target="_blank">open the preview directly &#8599;</a></div>
+        </div>
+        <a class="ppt-link" href="assets/ppt/road-crash-analytics-presentation.pptx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download presentation (.pptx)
+        </a>
+      </div>
+
+      <!-- CASE STUDY: One NZ Sentiment -->
+      <div class="case-study" id="case-p2">
+        <div class="back-link" onclick="showProjGrid()">&larr; Back to projects</div>
+        <div class="case-title">One NZ sentiment analysis</div>
+        <div class="case-sub">Python · VADER / RoBERTa · Power BI</div>
+
+        <div class="pdf-embed">
+          <iframe src="assets/pdf/one-nz-sentiment-dashboard.html" title="One NZ sentiment analysis Power BI dashboard PDF"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/pdf/one-nz-sentiment-dashboard.pdf" target="_blank">open the PDF directly &#8599;</a></div>
+        </div>
+
+        <div class="case-grid">
+          <div class="case-block">
+            <h4>Business problem</h4>
+            <p>One NZ's product team had a large volume of customer reviews and app-store ratings but no fast, reliable way to track sentiment shifts or spot emerging complaint themes.</p>
+          </div>
+          <div class="case-block">
+            <h4>What it solves</h4>
+            <p>NLP sentiment scoring applied to review text, visualised in Power BI as a sentiment trend line alongside complaint category and churn-risk indicators.</p>
+          </div>
+        </div>
+
+        <div class="case-block" style="margin-bottom:18px;">
+          <h4>Recommendations</h4>
+          <ul>
+            <li>Route the top negative-sentiment complaint categories directly to the relevant product team each month.</li>
+            <li>Track sentiment before/after major app releases to catch regressions early.</li>
+            <li>Set a sentiment-score threshold that automatically flags a review cluster for manual review.</li>
+          </ul>
+        </div>
+
+        <h4 style="font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);margin:0 0 10px;font-weight:500;">Presentation</h4>
+        <div class="pdf-embed">
+          <iframe src="assets/ppt/one-nz-sentiment-presentation.pdf" title="One NZ sentiment analysis presentation preview"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/ppt/one-nz-sentiment-presentation.pdf" target="_blank">open the preview directly &#8599;</a></div>
+        </div>
+        <a class="ppt-link" href="assets/ppt/one-nz-sentiment-presentation.pptx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download presentation (.pptx)
+        </a>
+      </div>
+
+      <!-- CASE STUDY: OLIST -->
+      <div class="case-study" id="case-p3">
+        <div class="back-link" onclick="showProjGrid()">&larr; Back to projects</div>
+        <div class="case-title">OLIST e-commerce analytics</div>
+        <div class="case-sub">Snowflake · SQL · Power BI</div>
+
+        <div class="pdf-embed">
+          <iframe src="assets/pdf/olist-ecommerce-dashboard.pdf" title="OLIST e-commerce analytics Power BI dashboard PDF"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/pdf/olist-ecommerce-dashboard.pdf" target="_blank">open the PDF directly &#8599;</a></div>
+        </div>
+
+        <div class="case-grid">
+          <div class="case-block">
+            <h4>Business problem</h4>
+            <p>Raw, fragmented order-level data across sellers, products and regions wasn't structured or trustworthy enough to support executive reporting on revenue and retention.</p>
+          </div>
+          <div class="case-block">
+            <h4>What it solves</h4>
+            <p>ETL pipelines feed a structured Snowflake warehouse with data-quality checks, powering a Power BI executive dashboard on revenue, retention and delivery performance.</p>
+          </div>
+        </div>
+
+        <div class="case-block" style="margin-bottom:18px;">
+          <h4>Recommendations</h4>
+          <ul>
+            <li>Focus retention efforts on the seller/region segments showing the steepest repeat-purchase drop-off.</li>
+            <li>Investigate delivery-time outliers most correlated with negative reviews and churn.</li>
+            <li>Automate the ETL refresh on a schedule so the executive view never goes stale.</li>
+          </ul>
+        </div>
+
+        <h4 style="font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);margin:0 0 10px;font-weight:500;">Presentation</h4>
+        <div class="pdf-embed">
+          <iframe src="assets/ppt/olist-ecommerce-presentation.pdf" title="OLIST e-commerce analytics presentation preview"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/ppt/olist-ecommerce-presentation.pdf" target="_blank">open the preview directly &#8599;</a></div>
+        </div>
+        <a class="ppt-link" href="assets/ppt/olist-ecommerce-presentation.pptx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download presentation (.pptx)
+        </a>
+      </div>
+
+      <!-- CASE STUDY: Smartwatch -->
+      <div class="case-study" id="case-p4">
+        <div class="back-link" onclick="showProjGrid()">&larr; Back to projects</div>
+        <div class="case-title">Smartwatch health analytics</div>
+        <div class="case-sub">Python · clustering · Power BI</div>
+
+        <div class="pdf-embed">
+          <iframe src="assets/pdf/smartwatch-health-dashboard.pdf" title="Smartwatch health analytics Power BI dashboard PDF"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/pdf/smartwatch-health-dashboard.pdf" target="_blank">open the PDF directly &#8599;</a></div>
+        </div>
+
+        <div class="case-grid">
+          <div class="case-block">
+            <h4>Business problem</h4>
+            <p>Clinicians monitoring wearable health data had no fast way to identify which patients were most at risk of a fall or decline in activity, among large volumes of sensor readings.</p>
+          </div>
+          <div class="case-block">
+            <h4>What it solves</h4>
+            <p>Clustering and predictive models flag fall-risk probability, sleep quality and activity levels, surfaced in a Power BI dashboard clinicians can scan at a glance.</p>
+          </div>
+        </div>
+
+        <div class="case-block" style="margin-bottom:18px;">
+          <h4>Recommendations</h4>
+          <ul>
+            <li>Prioritise clinical follow-up for patients flagged in the highest fall-risk band each week.</li>
+            <li>Cross-reference sleep-quality decline with fall-risk score to catch early warning combinations.</li>
+            <li>Extend the model with additional sensor inputs (heart rate variability) to improve early detection.</li>
+          </ul>
+        </div>
+
+        <h4 style="font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--text-faint);margin:0 0 10px;font-weight:500;">Presentation</h4>
+        <div class="pdf-embed">
+          <iframe src="assets/ppt/smartwatch-health-presentation.pdf" title="Smartwatch health analytics presentation preview"></iframe>
+          <div class="pdf-fallback">If the preview doesn't load, <a href="assets/ppt/smartwatch-health-presentation.pdf" target="_blank">open the preview directly &#8599;</a></div>
+        </div>
+        <a class="ppt-link" href="assets/ppt/smartwatch-health-presentation.pptx" download>
+          <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 20h16" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download presentation (.pptx)
+        </a>
+      </div>
+
+    </section>
+
+    <!-- EDUCATION -->
+    <section class="section" id="education">
+      <div class="eyebrow">Qualifications</div>
+      <h1>Education</h1>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <div class="edu-year">2026</div>
+          <div style="font-size:14.5px;font-weight:500;">Master of Business Informatics — Business Analytics <span class="grade">Grade A</span></div>
+          <div class="subline" style="margin:2px 0 0;">Yoobee College</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <div class="edu-year">2010</div>
+          <div style="font-size:14.5px;font-weight:500;">Postgraduate Diploma in Advanced Computing <span class="grade">Grade A</span></div>
+          <div class="subline" style="margin:2px 0 0;">Institute for Advanced Computing &amp; Software Development, India</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-dot"></div>
+        <div>
+          <div class="edu-year">2008</div>
+          <div style="font-size:14.5px;font-weight:500;">Bachelor of Technology — Computer Science <span class="grade">Grade B</span></div>
+          <div class="subline" style="margin:2px 0 0;">Usha Mittal Institute of Technology</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section class="section" id="certs">
+      <div class="eyebrow">Credentials</div>
+      <h1>Certifications</h1>
+      <div class="cert-grid">
+        <div class="cert-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>Microsoft Certified: Power BI Data Analyst Associate</div>
+        <div class="cert-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>Google Data Analytics Certificate</div>
+        <div class="cert-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>Agile Scrum Master</div>
+        <div class="cert-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>Python (Cisco)</div>
+        <div class="cert-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>Introduction to Modern AI (Cisco)</div>
+        <div class="cert-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>Data Modeling &amp; Analysis using Python (Cisco)</div>
+		<div class="cert-badge"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.5L7 21l5-2.5L17 21l-1.5-8.5"/></svg>Introduction to Data Engineering - Joe Reis(Coursera)</div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section class="section" id="skills">
+      <div class="eyebrow">Capability matrix</div>
+      <h1>Skills</h1>
+      <div class="card">
+        <div class="matrix-row">
+          <div><div class="matrix-label">Business analysis</div><div class="matrix-sub">Requirements, stakeholder mgmt</div></div>
+          <div class="matrix-bar"><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on"></div></div>
+        </div>
+        <div class="matrix-row">
+          <div><div class="matrix-label">Data visualization &amp; BI</div><div class="matrix-sub">Power BI, Tableau</div></div>
+          <div class="matrix-bar"><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on"></div><div class="cell"></div></div>
+        </div>
+        <div class="matrix-row">
+          <div><div class="matrix-label">Programming &amp; data</div><div class="matrix-sub">SQL, Python, C/C++</div></div>
+          <div class="matrix-bar"><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on"></div><div class="cell"></div><div class="cell"></div></div>
+        </div>
+        <div class="matrix-row">
+          <div><div class="matrix-label">Process &amp; compliance</div><div class="matrix-sub">DO-178B/C, Agile</div></div>
+          <div class="matrix-bar"><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on strong"></div><div class="cell on"></div></div>
+        </div>
+      </div>
+      <div class="matrix-legend">
+        <span><span class="legend-dot" style="background:#f2a93b;"></span>Core strength</span>
+        <span><span class="legend-dot" style="background:#35b7a6;"></span>Proficient</span>
+        <span><span class="legend-dot" style="background:#1d2430;border:1px solid #28303c;"></span>Developing</span>
+      </div>
+
+      <div class="subsection-gap">
+        <div class="eyebrow">Technical stack</div>
+        <h1 style="font-size:17px;">Languages &amp; tools, by company</h1>
+        <div class="lang-grid">
+          <div class="card">
+            <h4>Language distribution (by project)</h4>
+            <canvas id="pieCanvas"></canvas>
+            <div class="pie-legend" id="pieLegend"></div>
+          </div>
+          <div class="card">
+            <h4>Company &rarr; language &rarr; project</h4>
+            <div id="treemap"></div>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Full breakdown</h4>
+          <table class="lang-table">
+            <thead><tr><th>Company</th><th>Client / program</th><th>Project / tool</th><th>Language</th></tr></thead>
+            <tbody id="langTableBody"></tbody>
+          </table>
+          <div class="lang-note">HiLite is Honeywell's proprietary tool for testing model blocks. Tech Mahindra entry reflects a 4-month college internship (2008), included here for completeness rather than depth of experience.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="eyebrow">Get in touch</div>
+      <h1>Contact</h1>
+      <div class="contact-card">
+        <a class="contact-row" href="mailto:umrikar.sneha@gmail.com">
+          <span class="contact-label"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>Email</span>
+          <span class="contact-val">umrikar.sneha@gmail.com</span>
+        </a>
+        <a class="contact-row" href="tel:+64029025506236">
+          <span class="contact-label"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .6 3a2 2 0 01-.5 2L8 10a16 16 0 006 6l1.3-1.3a2 2 0 012-.5c1 .3 2 .5 3 .6a2 2 0 011.7 2z"/></svg>Phone</span>
+          <span class="contact-val">+64 029 02550236</span>
+        </a>
+        <a class="contact-row" href="https://linkedin.com/in/sneha-umrikar" target="_blank">
+          <span class="contact-label"><svg viewBox="0 0 24 24"><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/><path d="M10 9v12M10 13a4 4 0 018 0v8"/></svg>LinkedIn</span>
+          <span class="contact-val">sneha-umrikar</span>
+        </a>
+        <a class="contact-row" href="https://github.com/UmrikarS" target="_blank">
+          <span class="contact-label"><svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.5 3.5 0 00-1-2.7c3 0 6-2 6-5.7a4.5 4.5 0 00-1.3-3.2 4.2 4.2 0 00-.1-3.2s-1-.3-3.4 1.2a11.7 11.7 0 00-6.2 0C6.6 2.9 5.6 3.2 5.6 3.2a4.2 4.2 0 00-.1 3.2A4.5 4.5 0 004.2 9.1c0 3.7 3 5.7 6 5.7a3.5 3.5 0 00-1 2.6V21"/></svg>GitHub</span>
+          <span class="contact-val">UmrikarS</span>
+        </a>
+        <a class="contact-row" href="#" onclick="return false;">
+          <span class="contact-label"><svg viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0116 0z"/><circle cx="12" cy="10" r="3"/></svg>Location</span>
+          <span class="contact-val">Auckland, New Zealand</span>
+        </a>
+        <div class="visa-note">Holding full-time NZ work visa valid through 2029 - no sponsorship required.</div>
+      </div>
+    </section>
+
+    <!-- ABOUT ME -->
+    <section class="section" id="about">
+      <div class="eyebrow">Who I am</div>
+      <h1>About me</h1>
+      <!--<div class="avatar-lg"><img src="assets/photo.jpg" alt="Sneha Umrikar"></div>-->
+      <div class="card" style="max-width:640px;">
+        <p style="font-size:14px;color:var(--text);margin:0 0 12px;">
+          I spent 12 years verifying and building safety‑critical avionics software for Boeing, Honeywell, Pratt & Whitney and Bombardier - environments where precision, compliance and evidence‑based decisions were non‑negotiable. Working on systems where a single missed requirement could ground an aircraft taught me discipline, structured thinking and a deep respect for quality.
+        </p>
+        <p style="font-size:14px;color:var(--text-dim);margin:0 0 12px;">
+          After a long and rewarding engineering career, I took a short break to support my son during an important developmental phase. That experience strengthened my resilience, perspective and ability to balance complex responsibilities, qualities I now bring back into my professional life.
+        </p>
+        <p style="font-size:14px;color:var(--text-dim);margin:0 0 12px;">
+          Returning to work, I chose to upskill and completed a Master of Business Informatics, driven by my interest in modern technologies and the rapid evolution of AI across industries. Today, I’m focused on roles that blend engineering rigour with analytics, automation and emerging digital tools to create meaningful impact.
+        </p>
+        <div style="display:flex; gap:16px; align-items:flex-start; margin-bottom:4px;">
+          <p style="font-size:14px;color:var(--text-faint);margin:0;font-style:italic;flex:1;">
+            Outside work, I enjoy challenging myself, staying curious and making each day count. I believe in continuous learning, humility and not taking personal or professional growth for granted.
+          </p>
+          <div style="flex-shrink:0; width:92px;">
+            <div style="width:92px; height:118px; border-radius:10px; overflow:hidden; border:1px solid var(--line-strong); transform:rotate(-3deg); box-shadow:0 10px 22px -10px rgba(0,0,0,.6);">
+              <img src="assets/skydive.jpg" alt="Sneha skydiving" style="width:100%; height:100%; object-fit:cover; display:block;">
+            </div>
+            <div style="text-align:center; font-size:10px; color:var(--text-faint); margin-top:6px; font-family:'IBM Plex Mono',monospace;">skydive log #1</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;">
+          <span class="chip amber">Ex-avionics engineer</span>
+          <span class="chip teal">Now: business &amp; data analyst</span>
+          <span class="chip">Based in Auckland, NZ</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script>
+  const LANG_COLORS = { C:'#e2695c', 'C++':'#5fb9d8', MATLAB:'#f2a93b', Python:'#3ecbb8', JavaScript:'#e8c547', CSS:'#a78bfa' };
+  const LANG_DATA = [
+    { company:'Collins Aerospace', project:'TFTP protocol unit testing', lang:'C' },
+    { company:'Collins Aerospace', project:'Checklist tool (RCCT/BCVS)', lang:'C++' },
+    { company:'Collins Aerospace', project:'MATLAB tool qualification', lang:'MATLAB' },
+    { company:'Collins Aerospace', project:'EICAS manual & automation testing', lang:'Python' },
+    { company:'Cyient', project:'HiLite tool qualification (model block testing)', lang:'MATLAB' },
+    { company:'Cyient', project:'Datalink manual & automation testing', lang:'Python' },
+    { company:'Cyient', project:'Platform software integration testing', lang:'Python' },
+    { company:'Tech Mahindra', project:'Training management system', lang:'JavaScript' },
+    { company:'Tech Mahindra', project:'Training management system', lang:'CSS' },
+  ];
+  let langChartBuilt = false;
+
+  function initLangVisuals(){
+    // ---- pie/donut ----
+    if(!langChartBuilt){
+      const langCounts = {};
+      LANG_DATA.forEach(d => langCounts[d.lang] = (langCounts[d.lang]||0)+1);
+      const langs = Object.keys(langCounts);
+      new Chart(document.getElementById('pieCanvas'), {
+        type:'doughnut',
+        data:{ labels:langs, datasets:[{ data:langs.map(l=>langCounts[l]), backgroundColor:langs.map(l=>LANG_COLORS[l]), borderColor:'#171d27', borderWidth:2 }]},
+        options:{ plugins:{ legend:{ display:false } }, cutout:'55%' }
+      });
+      document.getElementById('pieLegend').innerHTML = langs.map(l =>
+        `<span><span class="legend-dot" style="background:${LANG_COLORS[l]}"></span>${l} (${langCounts[l]})</span>`
+      ).join('');
+
+      document.getElementById('langTableBody').innerHTML = LANG_DATA.map(d => `
+        <tr>
+          <td class="co">${d.company}</td>
+          <td>${d.client}</td>
+          <td>${d.project}</td>
+          <td><span class="lang-tag" style="background:${LANG_COLORS[d.lang]}22;color:${LANG_COLORS[d.lang]}">${d.lang}</span></td>
+        </tr>`).join('');
+
+      langChartBuilt = true;
+    }
+
+    // ---- treemap (rebuilt each time in case the container width changed) ----
+    const container = d3.select('#treemap');
+    container.selectAll('*').remove();
+    const nested = d3.rollups(LANG_DATA, v=>v, d=>d.company, d=>d.lang);
+    const root = { name:'root', children: nested.map(([company, langGroups]) => ({
+      name: company,
+      children: langGroups.map(([lang, projects]) => ({
+        name: lang,
+        children: projects.map(p => ({ name:p.project, client:p.client, lang, value:1 }))
+      }))
+    }))};
+    const hierarchy = d3.hierarchy(root).sum(d => d.value || 0);
+    const treeEl = document.getElementById('treemap');
+    const treeW = treeEl.clientWidth || 400;
+    const treeH = treeEl.clientHeight || 280;
+    d3.treemap().size([treeW, treeH]).paddingOuter(6).paddingTop(20).paddingInner(3)(hierarchy);
+
+    hierarchy.descendants().filter(d=>d.depth>0 && d.depth<3).forEach(d=>{
+      container.append('div')
+        .attr('class','tm-group')
+        .style('left', d.x0+'px').style('top', d.y0+'px')
+        .style('width', (d.x1-d.x0)+'px').style('height', (d.y1-d.y0)+'px')
+        .style('border', d.depth===1 ? '1px solid rgba(255,255,255,.14)' : '1px dashed rgba(255,255,255,.1)')
+        .style('border-radius', d.depth===1 ? '8px':'5px')
+        .style('font-size', d.depth===1 ? '11.5px':'10px')
+        .text(d.data.name);
+    });
+    hierarchy.leaves().forEach(d=>{
+      container.append('div')
+        .attr('class','tm-node')
+        .style('left', d.x0+'px').style('top', d.y0+'px')
+        .style('width', (d.x1-d.x0)+'px').style('height', (d.y1-d.y0)+'px')
+        .style('background', LANG_COLORS[d.data.lang])
+        .html(`<span class="co">${d.data.client||''}</span>${d.data.name}`);
+    });
+  }
+</script>
+<script>
+  const links = document.querySelectorAll('.navlink');
+  const marker = document.getElementById('planeMarker');
+
+  function positionMarker(el){
+    marker.style.top = (el.offsetTop + el.offsetHeight/2 - 8.5) + 'px';
+  }
+
+  function playFlightPath(){
+    const card = document.querySelector('.flightcard');
+    const motion = document.getElementById('planeMotion');
+    if(!card) return;
+    card.classList.remove('animate');
+    // force reflow so the animation can restart cleanly
+    void card.offsetWidth;
+    card.classList.add('animate');
+    if(motion){
+      try{ motion.beginElement(); }catch(e){}
+    }
+  }
+
+  function countUpKPIs(){
+    document.querySelectorAll('#overview .kpi .val').forEach(el => {
+      const target = parseInt(el.textContent, 10);
+      if(isNaN(target)) return;
+      let cur = 0;
+      const step = Math.max(1, Math.round(target / 24));
+      el.textContent = '0';
+      const t = setInterval(() => {
+        cur += step;
+        if(cur >= target){ cur = target; clearInterval(t); }
+        el.textContent = cur;
+      }, 28);
+    });
+  }
+
+  function setSectionBackground(section){
+    // Looks for assets/backgrounds/<section>.jpg — if the file doesn't exist,
+    // the browser just skips that layer and the default gradient shows through.
+    document.body.style.setProperty('--bg-image', `url('assets/backgrounds/${section}.jpg')`);
+  }
+
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(link.dataset.section).classList.add('active');
+      positionMarker(link);
+      setSectionBackground(link.dataset.section);
+      if(link.dataset.section === 'overview'){
+        playFlightPath();
+        countUpKPIs();
+      }
+      if(link.dataset.section === 'projects'){
+        showProjGrid();
+      }
+      if(link.dataset.section === 'skills'){
+        initLangVisuals();
+      }
+    });
+  });
+
+  function showProject(id){
+    document.getElementById('projGrid').classList.add('hidden');
+    document.querySelectorAll('.case-study').forEach(c => c.classList.remove('open'));
+    document.getElementById('case-' + id).classList.add('open');
+    document.querySelector('main').scrollTo({top:0, behavior:'smooth'});
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function showProjGrid(){
+    document.getElementById('projGrid').classList.remove('hidden');
+    document.querySelectorAll('.case-study').forEach(c => c.classList.remove('open'));
+  }
+
+  window.addEventListener('load', () => {
+    positionMarker(document.querySelector('.navlink.active'));
+    playFlightPath();
+    countUpKPIs();
+    setSectionBackground(document.querySelector('.navlink.active').dataset.section);
+  });
+</script>
+</body>
+</html>
