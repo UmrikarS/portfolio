@@ -2,7 +2,7 @@
 
 Business Analytics graduate (Auckland, NZ) with prior QA/engineering experience in avionics domain, now transitioning in data analytics, BI, and applied ML.
 
-[Portfolio site](https://umrikars.github.io/portfolio/) · [LinkedIn](https://linkedin.com/in/sneha-umrikar) · 📧 umrikar.sneha@gmail.com
+[Portfolio site](https://umrikars.github.io/portfolio/) · [LinkedIn](https://linkedin.com/in/sneha-umrikar) ·  umrikar.sneha@gmail.com
 
 This repo is the index to my project work - each row links to a full repo with code, a detailed README, and (where relevant) a live dashboard export. Start here, then click through to whatever's relevant to the role.
 
@@ -13,6 +13,7 @@ This repo is the index to my project work - each row links to a full repo with c
 - [Data Engineering & Warehousing](#data-engineering--warehousing)
 - [Machine Learning, NLP & MLOps](#machine-learning-nlp--mlops)
 - [Business Intelligence / Power BI](#business-intelligence--power-bi)
+- [AI Agents & LLM Applications](#ai-agents--llm-applications)
 - [Skills Summary](#skills-summary)
 
 ---
@@ -36,6 +37,12 @@ This repo is the index to my project work - each row links to a full repo with c
 | Project | Tools | What it does |
 |---|---|---|
 |  [SmartCare Health Monitoring](https://github.com/UmrikarS/SmartCare_Health_Monitoring_with_Smartwatches) | Power BI, DAX, Python, custom AppSource visuals | 5-page Power BI report with an embedded Python visual, custom box-and-whisker/heatmap visuals, and a 2-table relational data model — triages fall-risk patients for a care team. |
+
+## AI Agents & LLM Applications
+ 
+| Project | Tools | What it does |
+|---|---|---|
+| [Fundamental Analysis Agent](https://github.com/UmrikarS/fundamental-analysis-agent)  | Python, Streamlit, Google Gemini, Alpha Vantage API | A 3-agent Gemini pipeline (Interpreter → Anomaly Detector → Synthesizer) that turns raw financial statements into an analyst-style write-up for any stock ticker deployed and live.  [Live demo](https://fundamental-analysis-agent.streamlit.app/)|
 
 ---
 
