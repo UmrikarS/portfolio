@@ -1,4 +1,4 @@
-#  Sneha Umrikar Data Portfolio
+#  Sneha Umrikar Portfolio
 
 Business Analytics graduate (Auckland, NZ) with prior QA/engineering experience in avionics domain, now transitioning in data analytics, BI, and applied ML.
 
@@ -50,4 +50,4 @@ This repo is the index to my project work - each row links to a full repo with c
 
 `Python` · `SQL` · `Snowflake` · `PostgreSQL` · `PySpark / Delta Lake` · `Power BI (DAX)` · `Microsoft Fabric` · `Machine Learning (XGBoost, scikit-learn)` · `NLP (RoBERTa, VADER)` · `MLflow / MLOps` · `Statistical Testing` · `Docker`
 
-For a role-by-role breakdown of tools and impact, see my [resume](#) or the individual project READMEs linked above — each one documents the business problem, method, and quantified findings in full.
+For a role-by-role breakdown of tools and impact, see my [resume](#) or the individual project READMEs linked above each one documents the business problem, method, and quantified findings in full.
