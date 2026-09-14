@@ -61,4 +61,11 @@ For a role-by-role breakdown of tools and impact, see my [resume](#) or the indi
 - Oracle SQL Explorer
 - ISTQB CTFL
 
+## About me
+I spent years verifying safety‑critical avionics software for Rockwell Collins, Boeing, Honeywell - environments where precision, compliance and evidence‑based decisions were non‑negotiable. Working on systems where a single missed requirement could ground an aircraft taught me discipline, structured thinking and a deep respect for quality.
 
+After a rewarding engineering career, I took a break to support my son during an important developmental phase. That experience strengthened my resilience, perspective and ability to balance complex responsibilities, qualities I now bring back into my professional life.
+
+Returning to work, I chose to upskill and completed a Master of Business Informatics, driven by my interest in modern technologies and the rapid evolution of AI across industries. Today, I’m focused on roles that blend engineering rigour with analytics, automation and emerging digital tools to create meaningful impact.
+
+Outside work, I enjoy challenging myself, staying curious and making each day count. I believe in continuous learning, humility and not taking personal or professional growth for granted.
