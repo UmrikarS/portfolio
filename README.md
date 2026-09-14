@@ -36,7 +36,7 @@ This repo is the index to my project work - each row links to a full repo with c
 
 | Project | Tools | What it does |
 |---|---|---|
-|  [SmartCare Health Monitoring](https://github.com/UmrikarS/SmartCare_Health_Monitoring_with_Smartwatches) | Power BI, DAX, Python, custom AppSource visuals | 5-page Power BI report with an embedded Python visual, custom box-and-whisker/heatmap visuals, and a 2-table relational data model — triages fall-risk patients for a care team. |
+|  [SmartCare Health Monitoring](https://github.com/UmrikarS/SmartCare_Health_Monitoring_with_Smartwatches) | Power BI, DAX, Python, custom AppSource visuals | 5-page Power BI report with an embedded Python visual, custom box-and-whisker/heatmap visuals, and a 2-table relational data model, triages fall-risk patients for a care team. |
 
 ## AI Agents & LLM Applications
  
@@ -48,6 +48,17 @@ This repo is the index to my project work - each row links to a full repo with c
 
 ## Skills Summary
 
-`Python` · `SQL` · `Snowflake` · `PostgreSQL` · `PySpark / Delta Lake` · `Power BI (DAX)` · `Microsoft Fabric` · `Machine Learning (XGBoost, scikit-learn)` · `NLP (RoBERTa, VADER)` · `MLflow / MLOps` · `Statistical Testing` · `Docker`
+`Python` · `SQL` · `Snowflake` · `PostgreSQL` · `PySpark / Delta Lake` · `Power BI (DAX)` · `Microsoft Fabric` · `Machine Learning (XGBoost, scikit-learn)` · `NLP (RoBERTa, VADER)` · `MLflow / MLOps` · `Statistical Testing` · `Docker` · `Great Expectations` · `Terraform`· `Airflow`
 
 For a role-by-role breakdown of tools and impact, see my [resume](#) or the individual project READMEs linked above each one documents the business problem, method, and quantified findings in full.
+
+## Certifications
+
+- Microsoft Certified: Power BI Data Analyst Associate
+- Google Data Analytics
+- Data Science Essentials with Python
+- Python (CISCO)
+- Oracle SQL Explorer
+- ISTQB CTFL
+
+
